@@ -1,0 +1,46 @@
+---
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+exclude: "^([.]idea|[.]vscode|build|dep|release)/$"
+fail_fast: false
+repos:
+    - repo: https://github.com/pre-commit/pre-commit-hooks
+      rev: v6.0.0
+      hooks:
+          - id: check-added-large-files
+          - id: check-executables-have-shebangs
+          - id: check-json
+          - id: check-merge-conflict
+          - id: check-shebang-scripts-are-executable
+          - id: check-symlinks
+          - id: check-toml
+          - id: check-yaml
+          - id: file-contents-sorter
+            files: .codespell-ignore
+          - id: destroyed-symlinks
+          - id: end-of-file-fixer
+          - id: mixed-line-ending
+          - id: pretty-format-json
+            args:
+                - "--indent=\t"
+                - "--autofix"
+                - "--no-sort-keys"
+
+    - repo: https://github.com/codespell-project/codespell
+      rev: v2.4.1
+      hooks:
+          - id: codespell
+            exclude: "^.*[.]pdf$"
+            args:
+                - --quiet-level=3
+                - --ignore-words=.codespell-ignore
+
+    - repo: local
+      hooks:
+          - id: clang-format
+            name: clang-format
+            entry: clang-format
+            language: system
+            types_or: [c++, c]
+            args:
+                - -i

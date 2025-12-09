@@ -1,0 +1,67 @@
+{
+	"version": 10,
+	"configurePresets": [
+		{
+			"name": "gcc",
+			"description": "configure for host gcc",
+			"generator": "Ninja",
+			"binaryDir": "build/${presetName}",
+			"cacheVariables": {
+				"CMAKE_BUILD_TYPE": "Debug",
+				"CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+			}
+		},
+		{
+			"name": "clang",
+			"description": "configure like gcc but for host clang",
+			"inherits": "gcc",
+			"cacheVariables": {
+				"CMAKE_CXX_COMPILER": "clang++",
+				"CMAKE_C_COMPILER": "clang"
+			}
+		}
+	],
+	"buildPresets": [
+		{
+			"name": "gcc-all",
+			"description": "build with host gcc",
+			"configurePreset": "gcc"
+		},
+		{
+			"name": "clang-all",
+			"description": "build with host clang",
+			"configurePreset": "clang"
+		}
+	],
+	"testPresets": [],
+	"workflowPresets": [
+		{
+			"name": "build-gcc-all",
+			"displayName": "Build GCC + type: Debug + target: all",
+			"steps": [
+				{
+					"type": "configure",
+					"name": "gcc"
+				},
+				{
+					"type": "build",
+					"name": "gcc-all"
+				}
+			]
+		},
+		{
+			"name": "build-clang-all",
+			"displayName": "Build Clang + type: Debug + target: all",
+			"steps": [
+				{
+					"type": "configure",
+					"name": "clang"
+				},
+				{
+					"type": "build",
+					"name": "clang-all"
+				}
+			]
+		}
+	]
+}

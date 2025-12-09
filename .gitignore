@@ -1,0 +1,14 @@
+# BSP build artefacts
+/build/
+.cache
+CMakeLists.txt.*
+/dep/
+__pycache__
+/release/
+
+# IDE settings
+/.idea/
+/.venv/
+
+# build artefacts
+compile_commands.json
