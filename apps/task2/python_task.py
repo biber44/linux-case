@@ -1,11 +1,27 @@
 #!/usr/bin/env python3
 
 def rotate_in_place(matrix):
-    n = len(matrix)
-    for r in range(n):
-        for c in range(n):
-            matrix[r][c] = matrix[n-c-1][r]
+    dimension = len(matrix)
+    layer_count = range(dimension // 2) # concentric layers of a square matrix
+                                        # range() because in python i cannot iterate directly over an int
+    for layer in layer_count:
+        last_index = dimension - 1 - layer # last_index index of the current layer's boundary
+        for i in range(layer, last_index):
+            offset = i - layer # distance from the start of the current layer along the edge
 
+            top = matrix[layer][i]
+
+            # left -> top
+            matrix[layer][i] = matrix[last_index - offset][layer]
+
+            # bottom -> left
+            matrix[last_index - offset][layer] = matrix[last_index][last_index - offset]
+
+            # right -> bottom
+            matrix[last_index][last_index - offset] = matrix[i][last_index]
+
+            # top -> right
+            matrix[i][last_index] = top
 
 MATRIX1 = [
     [ 1,  2,  3,  4],
