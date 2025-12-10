@@ -7,12 +7,11 @@
 
 using namespace std::chrono_literals;
 
-void StartThread(std::thread &thread, std::atomic<bool> &running,
-                 std::function<bool(void)> Process,
+void StartThread(std::thread &thread, std::function<bool(void)> Process,
                  const std::chrono::seconds timeout) {
-  thread = std::thread([&running, Process = std::move(Process), timeout]() {
+  thread = std::thread([Process = std::move(Process), timeout]() {
     auto start = std::chrono::high_resolution_clock::now();
-    while (running) {
+    while (true) {
       bool aborted = Process();
 
       auto end = std::chrono::high_resolution_clock::now();
@@ -26,14 +25,13 @@ void StartThread(std::thread &thread, std::atomic<bool> &running,
 }
 
 int main(int argc, char **argv) {
-  std::atomic<bool> my_running = true;
   std::thread my_thread1, my_thread2;
   int loop_counter1 = 0, loop_counter2 = 0;
 
   // start actions in separate threads and wait of them
 
   StartThread(
-      my_thread1, my_running,
+      my_thread1,
       [&]() {
         // "some actions" simulated with waiting
         std::this_thread::sleep_for(std::chrono::milliseconds(2000));
@@ -43,7 +41,7 @@ int main(int argc, char **argv) {
       10s); // loop timeout
 
   StartThread(
-      my_thread2, my_running,
+      my_thread2,
       [&]() {
         // "some actions" simulated with waiting
         if (loop_counter2 < 5) {
