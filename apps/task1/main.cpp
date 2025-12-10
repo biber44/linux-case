@@ -8,9 +8,9 @@
 using namespace std::chrono_literals;
 
 void StartThread(std::thread &thread, std::atomic<bool> &running,
-                 const std::function<bool(void)> &Process,
+                 std::function<bool(void)> Process,
                  const std::chrono::seconds timeout) {
-  thread = std::thread([&]() {
+  thread = std::thread([&running, Process = std::move(Process), timeout]() {
     auto start = std::chrono::high_resolution_clock::now();
     while (running) {
       bool aborted = Process();
