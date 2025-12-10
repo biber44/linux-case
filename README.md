@@ -12,7 +12,7 @@ There are several ways to build the target application:
     cmake --workflow <cmake-preset>
     ```
 
-3. CLion can be used for building.
+2. CLion can be used for building.
    In CLion, you can use the CMake presets (Settings -> Build, Execution, Deployment -> CMake).
    The “Debug” preset is added by CLion and can be removed. Otherwise, the targets can be enabled or disabled as needed.
    Additional CMake or environment variables must be added via the CMake preset files.
@@ -20,7 +20,7 @@ There are several ways to build the target application:
 It depends on your personal flavour how to build the examples. You can use the command line but for developing purposes
 configuring an IDE of your choice is recommended.
 
-### GIT hooks
+## GIT hooks
 
 The [pre-commit](https://archlinux.org/packages/extra/any/pre-commit/) tool is used for running git hooks on every
 commit.
