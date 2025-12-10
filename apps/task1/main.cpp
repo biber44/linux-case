@@ -18,8 +18,7 @@ void StartThread(std::thread &thread, std::atomic<bool> &running,
       auto end = std::chrono::high_resolution_clock::now();
       auto duration =
           std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
-      if (aborted || duration > timeout) {
-        running = false;
+      if (aborted || duration >= timeout) {
         break;
       }
     }
