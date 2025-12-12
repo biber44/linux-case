@@ -1,4 +1,6 @@
 ---
-# Copied from: https://github.com/llvm/llvm-project/blob/main/.clang-format
+# Inspired from: https://github.com/llvm/llvm-project/blob/main/.clang-format
 BasedOnStyle: LLVM
 LineEnding: LF
+ColumnLimit: 140
+TabWidth: 4
